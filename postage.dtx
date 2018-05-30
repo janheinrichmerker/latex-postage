@@ -1,0 +1,606 @@
+% \iffalse meta-comment
+% !TEX program  = pdfLaTeX
+%<*internal>
+\iffalse
+%</internal>
+%<*license>
+Copyright (C) 2018 by Jan Heinrich Reimer <heinrich@heinrichreimer.com>
+
+This work may be distributed and/or modified under the
+conditions of the LaTeX Project Public License (LPPL), either
+version 1.3c of this license or (at your option) any later
+version.  The latest version of this license is in the file:
+
+http://www.latex-project.org/lppl.txt
+
+This work is "maintained" (as per LPPL maintenance status) by
+Jan Heinrich Reimer.
+
+This work consists of the file  postage.dtx
+and the derived files           postage.ins,
+                                postage.pdf and
+                                postage.sty.
+%</license>
+%<*readme>
+# The `postage` package
+
+Franking letters with »Deutsche Post«'s online postage service »Internetmarke«.
+
+## Contact
+
+Author: Jan Heinrich Reimer
+E-mail: [heinrich@heinrichreimer.com](heinrich@heinrichreimer.com)
+Address: Barfüßerstraße 7, 06108 Halle (Saale), Germany
+
+## License
+
+Copyright (C) 2018 by Jan Heinrich Reimer <heinrich@heinrichreimer.com>
+
+This work may be distributed and/or modified under the
+conditions of the LaTeX Project Public License (LPPL), either
+version 1.3c of this license or (at your option) any later
+version.  The latest version of this license is in the file:
+
+http://www.latex-project.org/lppl.txt
+
+This work is "maintained" (as per LPPL maintenance status) by
+Jan Heinrich Reimer.
+
+This work consists of the file  postage.dtx
+and the derived files           postage.ins,
+                                postage.pdf and
+                                postage.sty.
+%</readme>
+%<*internal>
+\fi
+\def\nameofplainTeX{plain}
+\ifx\fmtname\nameofplainTeX\else
+    \expandafter\begingroup
+\fi
+%</internal>
+%<*install>
+\input docstrip.tex
+\keepsilent
+\askforoverwritefalse
+\preamble
+----------------------------------------------------------------
+postage --- Franking letters with »Deutsche Post«'s online postage service »Internetmarke«
+E-mail: heinrich@heinrichreimer.com
+Released under the LaTeX Project Public License v1.3c or later
+See http://www.latex-project.org/lppl.txt
+----------------------------------------------------------------
+
+\endpreamble
+\postamble
+Copyright (C) 2018 by Jan Heinrich Reimer <heinrich@heinrichreimer.com>
+
+This work may be distributed and/or modified under the
+conditions of the LaTeX Project Public License (LPPL), either
+version 1.3c of this license or (at your option) any later
+version.  The latest version of this license is in the file:
+
+http://www.latex-project.org/lppl.txt
+
+This work is "maintained" (as per LPPL maintenance status) by
+Jan Heinrich Reimer.
+
+This work consists of the file  postage.dtx
+and the derived files           postage.ins,
+                                postage.pdf and
+                                postage.sty.
+\endpostamble
+\usedir{tex/latex/postage}
+\generate{
+    \file{\jobname.sty}{\from{\jobname.dtx}{package}}
+}
+%</install>
+%<install>\endbatchfile
+%<*internal>
+\usedir{source/latex/postage}
+\generate{
+    \file{\jobname.ins}{\from{\jobname.dtx}{install}}
+}
+\nopreamble\nopostamble
+\usedir{doc/latex/postage}
+\generate{
+    \file{README.md}{\from{\jobname.dtx}{readme, license}}
+    \file{LICENSE.txt}{\from{\jobname.dtx}{license}}
+}
+\ifx\fmtname\nameofplainTeX
+    \expandafter\endbatchfile
+\else
+    \expandafter\endgroup
+\fi
+%</internal>
+%<*package>
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{postage}[2018/05/29 v1.0 Franking letters with »Deutsche Post«'s online postage service »Internetmarke«]
+
+\RequirePackage{graphicx}
+\RequirePackage{tikz}
+\RequirePackage{calc}
+\RequirePackage{keyval}
+%</package>
+%<*driver>
+\documentclass{ltxdoc}
+\usepackage[a4paper,top=3cm,bottom=3cm,left=5cm,right=3cm]{geometry}
+\usepackage[english]{babel} 
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[default,regular,bold]{sourceserifpro}
+\usepackage[semibold]{sourcesanspro}
+\usepackage{sourcecodepro}
+\usepackage{\jobname}
+\usepackage[numbered]{hypdoc}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{listings}
+\usepackage{float}
+\hypersetup{
+    colorlinks = false,
+}
+\lstset{
+    language=TeX,
+    basicstyle=\ttfamily,
+    breakatwhitespace=false,
+    breaklines=true,
+    prebreak={\mbox{$\hookleftarrow$}},
+    numbers=left,
+    numberstyle=\scriptsize,
+    numbersep=1pt,
+    % commentstyle=\color{lscomment},
+    keepspaces=true,
+    % keywordstyle=\bfseries\color{lskeyword},
+    stringstyle=\color{lsstring},
+    tabsize=4,
+    xleftmargin=1em,
+}
+\titleformat{\section}{\sf\LARGE\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\sf\Large\bfseries}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\sf\large\bfseries}{\thesubsubsection}{1em}{}
+\setlength{\parindent}{0pt}
+\EnableCrossrefs
+\CodelineIndex
+\RecordChanges
+\begin{document}
+    \DocInput{\jobname.dtx}
+\end{document}
+%</driver>
+%\fi
+%
+%\GetFileInfo{\jobname.sty}
+%
+%\title{\sf\fontseries{sb}^^A
+%    The \textbf{postage} package^^A
+%    \footnote{This document describes version \fileversion, last revised \filedate.}^^A
+%}
+%\author{\sf ^^A
+%    Jan Heinrich Reimer^^A
+%    \footnote{Address: Barfüßerstraße 7, 06108 Halle (Saale), Germany} \\
+%    \texttt{\small heinrich@heinrichreimer.com}^^A
+%}
+%\date{\sf^^A
+%     Released \filedate
+%}
+%
+%\maketitle
+%
+%\tableofcontents
+%
+%\section{Introduction}
+%
+%    The \textsf{postage} package is used for franking letters 
+%    with \frqq Deutsche Post\flqq's 
+%    online postage service \frqq Internetmarke\flqq.
+%
+%\changes{v1.0}{2018/05/29}{First public release}
+%
+%\section{Usage}
+%
+%\subsection{Requirements}
+%
+%    Note that in order to print valid stamps 
+%    the \marg{file} argument of any of this package's commands 
+%    \emph{must} point to a valid PDF 
+%    of \frqq Deutsche Post\flqq's \frqq Ausdruck 4-spaltig (DIN A4)\flqq{} format.^^A
+%    \footnote{See also section \ref{outlook}.}
+%
+%\subsection{Commands}
+%
+%\addcontentsline{toc}{subsubsection}{\cs{includestamp}}\label{sec:includestamp}
+%\DescribeMacro{\includestamp}
+%    The \cs{includestamp}\oarg{options}\marg{file} command loads a single stamp 
+%    from the file spceified in its mandatory \marg{file} argument
+%    and draws it on the page.
+%    The additional \hyperref[sec:includestamp:options]{\oarg{options}} can be used to
+%    specify the stamps position in the \marg{file} 
+%    and the stamp's appearance.
+%
+%\subsubsection*{Options \oarg{options}}\label{sec:includestamp:options}
+%
+%\DescribeMacro{style=$\langle$normal$\vert$compact$\rangle$}
+%    The stamp's appearance; may either be \texttt{normal} or \texttt{compact}.
+%
+%\DescribeMacro{normal}
+%    Set the stamp's appearance to \texttt{normal}. Same as \texttt{style=normal}.
+%
+%\DescribeMacro{compact}
+%    Set the stamp's appearance to \texttt{compact}. Same as \texttt{style=compact}.
+%
+%\DescribeMacro{page=$\langle$1\textellipsis$\rangle$}
+%    The stamp's page from which to copy the stamp from the stamps PDF file. Pages count from 1.
+%
+%\DescribeMacro{row=$\langle$1\textellipsis8$\rangle$}
+%    The stamp's row on the page. Rows count from 1 to 8.
+%
+%\DescribeMacro{column=$\langle$1\textellipsis4$\rangle$}
+%    The stamp's column on the page. Rows count from 1 to 4.
+%
+%\subsubsection*{Example}
+%
+%    The following code generates figure \ref{fig:sample:1}:
+%    \iffalse
+%<*example>
+%    \fi
+\begin{lstlisting}[language=tex]
+\includestamp{sample-stamps}
+\end{lstlisting}
+%    \iffalse
+%<*example>
+%    \fi
+%    or
+%    \iffalse
+%</example>
+%    \fi
+\begin{lstlisting}[language=tex]
+\includestamp[page=1,row=1,column=1,normal]{sample-stamps}
+\end{lstlisting}
+%    \iffalse
+%</example>
+%    \fi
+%
+%    \begin{figure}[H]
+%        \centering
+%        \includestamp{sample-stamps}%
+%        \quad%
+%        \frame{\includestamp{sample-stamps}}
+%        \caption{A normal-sized stamp (taken from \frqq Deutsche Post\flqq's sample PDF).}\label{fig:sample:1}
+%    \end{figure}
+%
+%    The following code generates figure \ref{fig:sample:2}:
+%    \iffalse
+%<*example>
+%    \fi
+\begin{lstlisting}[language=tex]
+\includestamp[compact]{sample-stamps}
+\end{lstlisting}
+%    \iffalse
+%</example>
+%    \fi
+%    or
+%    \iffalse
+%<*example>
+%    \fi
+\begin{lstlisting}[language=tex]
+\includestamp[row=1,column=1,style=normal]{sample-stamps}
+\end{lstlisting}
+%    \iffalse
+%</example>
+%    \fi
+%
+%    \begin{figure}[H]
+%        \centering
+%        \includestamp[compact]{sample-stamps}%
+%        \quad%
+%        \frame{\includestamp[compact]{sample-stamps}}
+%        \caption{The same stamp in its compact representation.}\label{fig:sample:2}
+%    \end{figure}
+%
+%\iffalse
+%<*package>
+%\fi
+%
+%\section{Implementation}
+%
+%\subsection{Initialization}
+%
+%\subsubsection{Options}
+%
+%    Define the stamp's display styles, the default display style 
+%    and the according command options 
+%    \texttt{style}, \texttt{compact} and \texttt{normal}.
+%    \begin{macrocode}
+\def\postage@stamp@style@normal{normal}
+\def\postage@stamp@style@compact{compact}
+\let\postage@current@stamp@style\postage@stamp@style@normal
+\define@key{postage}{style}{%
+    \def\postage@current@stamp@style{#1}%
+}
+\define@key{postage}{compact}[true]{%
+    \let\postage@current@stamp@style\postage@stamp@style@compact%
+}
+\define@key{postage}{normal}[true]{%
+    \let\postage@current@stamp@style\postage@stamp@style@compact%
+}
+%    \end{macrocode}
+%
+%    Define the stamp's page, row and column 
+%    on the \frqq Internetmarke\flqq{} PDF,
+%    their defaults and the according command options 
+%    \texttt{page}, \texttt{row} and \texttt{column}.
+%    \begin{macrocode}
+\def\postage@current@stamp@page{1}
+\def\postage@current@stamp@row{1}
+\def\postage@current@stamp@column{1}
+\define@key{postage}{page}{%
+    \def\postage@current@stamp@page{#1}%
+}
+\define@key{postage}{row}{%
+    \def\postage@current@stamp@row{#1}%
+}
+\define@key{postage}{column}{%
+    \def\postage@current@stamp@column{#1}%
+}
+%    \end{macrocode}
+%
+%\subsubsection{Lengths}
+%
+%    Create the lengths describing the stamp's 
+%    position, height and width on the PDF page
+%    as well as each stamp's parts relative to 
+%    the stamp's position.
+%    \begin{macrocode}
+\newlength{\postage@page@width}
+\newlength{\postage@page@height}
+\newlength{\postage@grid@width}
+\newlength{\postage@grid@height}
+\newlength{\postage@grid@x}
+\newlength{\postage@grid@y}
+\newlength{\postage@stamp@content@width}
+\newlength{\postage@stamp@content@height}
+\newlength{\postage@stamp@content@x}
+\newlength{\postage@stamp@content@y}
+\newlength{\postage@stamp@barcode@width}
+\newlength{\postage@stamp@barcode@height}
+\newlength{\postage@stamp@barcode@x}
+\newlength{\postage@stamp@barcode@y}
+\newlength{\postage@stamp@barcode@text@width}
+\newlength{\postage@stamp@logo@width}
+\newlength{\postage@stamp@logo@height}
+\newlength{\postage@stamp@logo@x}
+\newlength{\postage@stamp@logo@y}
+%    \end{macrocode}
+%
+%    Save the lengths describing 
+%    \frqq Deutsche Post\flqq's \frqq Internetmarke\flqq
+%    in its \frqq Ausdruck 4-spaltig (DIN A4)\flqq{} format.
+%    All measurments below have been taken 
+%    from \frqq Deutsche Post\flqq's 
+%    official sample PDF using the Inkscape vector editor
+%    with a precision of $\pm$0.0005mm
+%    \begin{macrocode}
+\setlength{\postage@page@width}{209.99979mm}
+\setlength{\postage@page@height}{296.99973mm}
+\setlength{\postage@grid@width}{40mm}
+\setlength{\postage@grid@height}{32.999mm}
+\setlength{\postage@grid@x}{22.5mm}
+\setlength{\postage@grid@y}{14.05473mm}
+\setlength{\postage@stamp@content@width}{31.639mm}
+\setlength{\postage@stamp@content@height}{22.473mm}
+\setlength{\postage@stamp@content@x}{3.024mm}
+\setlength{\postage@stamp@content@y}{2.855mm}
+\setlength{\postage@stamp@barcode@width}{30.862mm}
+\setlength{\postage@stamp@barcode@height}{11.01mm}
+\setlength{\postage@stamp@barcode@x}{3.009mm}
+\setlength{\postage@stamp@barcode@y}{11.029mm}
+\setlength{\postage@stamp@barcode@text@width}{15.732mm}
+\setlength{\postage@stamp@logo@width}{31.639mm}
+\setlength{\postage@stamp@logo@height}{5.282mm}
+\setlength{\postage@stamp@logo@x}{3.024mm}
+\setlength{\postage@stamp@logo@y}{2.855mm}
+%    \end{macrocode}
+%
+%    Create temporary lengths that are calculated individually 
+%    for each stamp.
+%    \begin{macrocode}
+\newlength{\postage@current@stamp@x}
+\newlength{\postage@current@stamp@y}
+\newlength{\postage@current@stamp@trim@left}
+\newlength{\postage@current@stamp@trim@bottom}
+\newlength{\postage@current@stamp@trim@right}
+\newlength{\postage@current@stamp@trim@top}
+%    \end{macrocode}
+%
+%\subsection{Calculating position}
+%
+%\begin{macro}{\postage@calculate@current@stamp@position}
+%    Calculate the current stamp's position on the page 
+%    based on its \texttt{row} 
+%    and \texttt{column} options.
+%    \begin{macrocode}
+\newcommand{\postage@calculate@current@stamp@position}{
+    \setlength{\postage@current@stamp@x}{
+        \postage@grid@x + 
+        \postage@grid@width * 
+        (\postage@current@stamp@column - 1)
+    }%
+    \setlength{\postage@current@stamp@y}{
+        \postage@grid@y + 
+        \postage@grid@height *  
+        (\postage@current@stamp@row - 1)
+    }%
+}
+%    \end{macrocode}
+%\end{macro}
+%
+%\subsection{Drawing}
+%
+%\begin{macro}{\postage@draw@current@stamp@part}
+%    Draw a part of the current stamp whose trim offsets 
+%    were previously calculated using \cs{postage@calculate@current@stamp@position}.
+%    \begin{macrocode}
+\newcommand{\postage@draw@current@stamp@part}[1][]{%
+    \includegraphics[page=\postage@current@stamp@page, trim={
+        {1\postage@current@stamp@trim@left}
+        {1\postage@current@stamp@trim@bottom}
+        {1\postage@current@stamp@trim@right}
+        {1\postage@current@stamp@trim@top}
+    }, clip, #1]{\postage@current@stamp@file}%
+}
+%    \end{macrocode}
+%\end{macro}
+%
+%\begin{macro}{\postage@draw@current@stamp@content}
+%    Draw the current stamp's whole content trimming whitespace around it.
+%    \begin{macrocode}
+\newcommand{\postage@draw@current@stamp@content}{%
+    \setlength{\postage@current@stamp@trim@top}{
+        \postage@current@stamp@y + 
+        \postage@stamp@content@y
+    }%
+    \setlength{\postage@current@stamp@trim@left}{
+        \postage@current@stamp@x + 
+        \postage@stamp@content@x
+    }%
+    \setlength{\postage@current@stamp@trim@bottom}{
+        \postage@page@height - 
+        \postage@current@stamp@trim@top -
+        \postage@stamp@content@height
+    }%
+    \setlength{\postage@current@stamp@trim@right}{
+        \postage@page@width - 
+        \postage@current@stamp@trim@left - 
+        \postage@stamp@content@width
+    }%
+    \postage@draw@current@stamp@part%
+}
+%    \end{macrocode}
+%\end{macro}
+%
+%\begin{macro}{\postage@draw@current@stamp@barcode}
+%    Draw only the current stamp's barcode (and the included number code).
+%    \begin{macrocode}
+\newcommand{\postage@draw@current@stamp@barcode}{%
+    \setlength{\postage@current@stamp@trim@top}{
+        \postage@current@stamp@y + 
+        \postage@stamp@barcode@y
+    }%
+    \setlength{\postage@current@stamp@trim@left}{
+        \postage@current@stamp@x + 
+        \postage@stamp@barcode@x
+    }%
+    \setlength{\postage@current@stamp@trim@bottom}{
+        \postage@page@height - 
+        \postage@current@stamp@trim@top - 
+        \postage@stamp@barcode@height}%
+    \setlength{\postage@current@stamp@trim@right}{
+        \postage@page@width - 
+        \postage@current@stamp@trim@left - 
+        \postage@stamp@barcode@width
+    }%
+    \postage@draw@current@stamp@part%
+}
+%    \end{macrocode}
+%\end{macro}
+%
+%\begin{macro}{\postage@draw@current@stamp@logo}
+%    Draw only the current stamp's \frqq Deutsche Post\flqq{} logo.
+%    \begin{macrocode}
+\newcommand{\postage@draw@current@stamp@logo}{%
+    \setlength{\postage@current@stamp@trim@top}{
+        \postage@current@stamp@y + 
+        \postage@stamp@logo@y
+    }%
+    \setlength{\postage@current@stamp@trim@left}{
+        \postage@current@stamp@x + 
+        \postage@stamp@logo@x
+    }%
+    \setlength{\postage@current@stamp@trim@bottom}{
+        \postage@page@height - 
+        \postage@current@stamp@trim@top - 
+        \postage@stamp@logo@height
+    }%
+    \setlength{\postage@current@stamp@trim@right}{
+        \postage@page@width - 
+        \postage@current@stamp@trim@left - 
+        \postage@stamp@logo@width
+    }%
+    \postage@draw@current@stamp@part[%
+        width={1\postage@stamp@barcode@text@width}
+    ]%
+}
+%    \end{macrocode}
+%\end{macro}
+%
+%\begin{macro}{\postage@draw@current@stamp@style@compact}
+%    Draw the current stamp's compact representation. 
+%    This will print a scaled-down version of the 
+%    \frqq Deutsche Post\flqq{} logo in the upper-right corner
+%    of the barcode and trim the big logo 
+%    and \frqq Internetmarke\flqq{} URL instead.
+%    \begin{macrocode}
+\newcommand{\postage@draw@current@stamp@style@compact}{%
+    \begin{tikzpicture}
+    \node[anchor=north east, inner sep=0] at (0,0) 
+    {\postage@draw@current@stamp@barcode};
+    \node[anchor=north east, inner sep=0] at (0,0) 
+    {\postage@draw@current@stamp@logo};
+    \end{tikzpicture}%
+}
+%    \end{macrocode}
+%\end{macro}
+%
+%\begin{macro}{\postage@draw@current@stamp@style@normal}
+%    Draw the current stamp's whole content 
+%    including the big \frqq Deutsche Post\flqq{} logo
+%    and \frqq Internetmarke\flqq{} URL, 
+%    yet trimming whitespace around it.
+%    \begin{macrocode}
+\newcommand{\postage@draw@current@stamp@style@normal}{%
+    \postage@draw@current@stamp@content%
+}
+%    \end{macrocode}
+%\end{macro}
+%
+%\begin{macro}{\includestamp}
+%    See the \hyperref[sec:includestamp]{usage documentation}.
+%    \begin{macrocode}
+\newcommand{\includestamp}[2][]{%
+    \setkeys{postage}{#1}%
+    \def\postage@current@stamp@file{#2}%
+    \postage@calculate@current@stamp@position%
+    %
+    \ifx\postage@current@stamp@style\postage@stamp@style@compact%
+    \postage@draw@current@stamp@style@compact%
+    \else%
+    \postage@draw@current@stamp@style@normal%
+    \fi%
+}
+%    \end{macrocode}
+%\end{macro}
+%\iffalse
+%</package>
+%\fi
+%
+%\section{Outlook}\label{outlook}
+%
+%    In future this library may be extended 
+%    to other postage service (potentially outside Germany).
+%    Then a \texttt{service} option could be set up to decide 
+%    which format to use.
+%
+%    Speaking of formats one could also think about implementing 
+%    \frqq Deutsche Post\flqq's \frqq Ausdruck 3-spaltig (DIN A4)\flqq{} format
+%    to support more stamp types such as enrolls and/or mail tracking,
+%    which at the time of writing this package aren't supported in
+%    the \frqq Deutsche Post\flqq's \frqq Internetmarke\flqq{}
+%    in \frqq Ausdruck 4-spaltig (DIN A4)\flqq{} format.
+%
+%\StopEventually{^^A
+%    \PrintChanges
+%    \PrintIndex
+%}
+%
+%\Finale
+\endinput

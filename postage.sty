@@ -1,0 +1,213 @@
+%%
+%% This is file `postage.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% postage.dtx  (with options: `package')
+%% ----------------------------------------------------------------
+%% postage --- Franking letters with »Deutsche Post«'s online postage service »Internetmarke«
+%% E-mail: heinrich@heinrichreimer.com
+%% Released under the LaTeX Project Public License v1.3c or later
+%% See http://www.latex-project.org/lppl.txt
+%% ----------------------------------------------------------------
+%% 
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{postage}[2018/05/29 v1.0 Franking letters with »Deutsche Post«'s online postage service »Internetmarke«]
+
+\RequirePackage{graphicx}
+\RequirePackage{tikz}
+\RequirePackage{calc}
+\RequirePackage{keyval}
+\def\postage@stamp@style@normal{normal}
+\def\postage@stamp@style@compact{compact}
+\let\postage@current@stamp@style\postage@stamp@style@normal
+\define@key{postage}{style}{%
+    \def\postage@current@stamp@style{#1}%
+}
+\define@key{postage}{compact}[true]{%
+    \let\postage@current@stamp@style\postage@stamp@style@compact%
+}
+\define@key{postage}{normal}[true]{%
+    \let\postage@current@stamp@style\postage@stamp@style@compact%
+}
+\def\postage@current@stamp@page{1}
+\def\postage@current@stamp@row{1}
+\def\postage@current@stamp@column{1}
+\define@key{postage}{page}{%
+    \def\postage@current@stamp@page{#1}%
+}
+\define@key{postage}{row}{%
+    \def\postage@current@stamp@row{#1}%
+}
+\define@key{postage}{column}{%
+    \def\postage@current@stamp@column{#1}%
+}
+\newlength{\postage@page@width}
+\newlength{\postage@page@height}
+\newlength{\postage@grid@width}
+\newlength{\postage@grid@height}
+\newlength{\postage@grid@x}
+\newlength{\postage@grid@y}
+\newlength{\postage@stamp@content@width}
+\newlength{\postage@stamp@content@height}
+\newlength{\postage@stamp@content@x}
+\newlength{\postage@stamp@content@y}
+\newlength{\postage@stamp@barcode@width}
+\newlength{\postage@stamp@barcode@height}
+\newlength{\postage@stamp@barcode@x}
+\newlength{\postage@stamp@barcode@y}
+\newlength{\postage@stamp@barcode@text@width}
+\newlength{\postage@stamp@logo@width}
+\newlength{\postage@stamp@logo@height}
+\newlength{\postage@stamp@logo@x}
+\newlength{\postage@stamp@logo@y}
+\setlength{\postage@page@width}{209.99979mm}
+\setlength{\postage@page@height}{296.99973mm}
+\setlength{\postage@grid@width}{40mm}
+\setlength{\postage@grid@height}{32.999mm}
+\setlength{\postage@grid@x}{22.5mm}
+\setlength{\postage@grid@y}{14.05473mm}
+\setlength{\postage@stamp@content@width}{31.639mm}
+\setlength{\postage@stamp@content@height}{22.473mm}
+\setlength{\postage@stamp@content@x}{3.024mm}
+\setlength{\postage@stamp@content@y}{2.855mm}
+\setlength{\postage@stamp@barcode@width}{30.862mm}
+\setlength{\postage@stamp@barcode@height}{11.01mm}
+\setlength{\postage@stamp@barcode@x}{3.009mm}
+\setlength{\postage@stamp@barcode@y}{11.029mm}
+\setlength{\postage@stamp@barcode@text@width}{15.732mm}
+\setlength{\postage@stamp@logo@width}{31.639mm}
+\setlength{\postage@stamp@logo@height}{5.282mm}
+\setlength{\postage@stamp@logo@x}{3.024mm}
+\setlength{\postage@stamp@logo@y}{2.855mm}
+\newlength{\postage@current@stamp@x}
+\newlength{\postage@current@stamp@y}
+\newlength{\postage@current@stamp@trim@left}
+\newlength{\postage@current@stamp@trim@bottom}
+\newlength{\postage@current@stamp@trim@right}
+\newlength{\postage@current@stamp@trim@top}
+\newcommand{\postage@calculate@current@stamp@position}{
+    \setlength{\postage@current@stamp@x}{
+        \postage@grid@x +
+        \postage@grid@width *
+        (\postage@current@stamp@column - 1)
+    }%
+    \setlength{\postage@current@stamp@y}{
+        \postage@grid@y +
+        \postage@grid@height *
+        (\postage@current@stamp@row - 1)
+    }%
+}
+\newcommand{\postage@draw@current@stamp@part}[1][]{%
+    \includegraphics[page=\postage@current@stamp@page, trim={
+        {1\postage@current@stamp@trim@left}
+        {1\postage@current@stamp@trim@bottom}
+        {1\postage@current@stamp@trim@right}
+        {1\postage@current@stamp@trim@top}
+    }, clip, #1]{\postage@current@stamp@file}%
+}
+\newcommand{\postage@draw@current@stamp@content}{%
+    \setlength{\postage@current@stamp@trim@top}{
+        \postage@current@stamp@y +
+        \postage@stamp@content@y
+    }%
+    \setlength{\postage@current@stamp@trim@left}{
+        \postage@current@stamp@x +
+        \postage@stamp@content@x
+    }%
+    \setlength{\postage@current@stamp@trim@bottom}{
+        \postage@page@height -
+        \postage@current@stamp@trim@top -
+        \postage@stamp@content@height
+    }%
+    \setlength{\postage@current@stamp@trim@right}{
+        \postage@page@width -
+        \postage@current@stamp@trim@left -
+        \postage@stamp@content@width
+    }%
+    \postage@draw@current@stamp@part%
+}
+\newcommand{\postage@draw@current@stamp@barcode}{%
+    \setlength{\postage@current@stamp@trim@top}{
+        \postage@current@stamp@y +
+        \postage@stamp@barcode@y
+    }%
+    \setlength{\postage@current@stamp@trim@left}{
+        \postage@current@stamp@x +
+        \postage@stamp@barcode@x
+    }%
+    \setlength{\postage@current@stamp@trim@bottom}{
+        \postage@page@height -
+        \postage@current@stamp@trim@top -
+        \postage@stamp@barcode@height}%
+    \setlength{\postage@current@stamp@trim@right}{
+        \postage@page@width -
+        \postage@current@stamp@trim@left -
+        \postage@stamp@barcode@width
+    }%
+    \postage@draw@current@stamp@part%
+}
+\newcommand{\postage@draw@current@stamp@logo}{%
+    \setlength{\postage@current@stamp@trim@top}{
+        \postage@current@stamp@y +
+        \postage@stamp@logo@y
+    }%
+    \setlength{\postage@current@stamp@trim@left}{
+        \postage@current@stamp@x +
+        \postage@stamp@logo@x
+    }%
+    \setlength{\postage@current@stamp@trim@bottom}{
+        \postage@page@height -
+        \postage@current@stamp@trim@top -
+        \postage@stamp@logo@height
+    }%
+    \setlength{\postage@current@stamp@trim@right}{
+        \postage@page@width -
+        \postage@current@stamp@trim@left -
+        \postage@stamp@logo@width
+    }%
+    \postage@draw@current@stamp@part[%
+        width={1\postage@stamp@barcode@text@width}
+    ]%
+}
+\newcommand{\postage@draw@current@stamp@style@compact}{%
+    \begin{tikzpicture}
+    \node[anchor=north east, inner sep=0] at (0,0)
+    {\postage@draw@current@stamp@barcode};
+    \node[anchor=north east, inner sep=0] at (0,0)
+    {\postage@draw@current@stamp@logo};
+    \end{tikzpicture}%
+}
+\newcommand{\postage@draw@current@stamp@style@normal}{%
+    \postage@draw@current@stamp@content%
+}
+\newcommand{\includestamp}[2][]{%
+    \setkeys{postage}{#1}%
+    \def\postage@current@stamp@file{#2}%
+    \postage@calculate@current@stamp@position%
+    %
+    \ifx\postage@current@stamp@style\postage@stamp@style@compact%
+    \postage@draw@current@stamp@style@compact%
+    \else%
+    \postage@draw@current@stamp@style@normal%
+    \fi%
+}
+%% Copyright (C) 2018 by Jan Heinrich Reimer <heinrich@heinrichreimer.com>
+%% 
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License (LPPL), either
+%% version 1.3c of this license or (at your option) any later
+%% version.  The latest version of this license is in the file:
+%% 
+%% http://www.latex-project.org/lppl.txt
+%% 
+%% This work is "maintained" (as per LPPL maintenance status) by
+%% Jan Heinrich Reimer.
+%% 
+%% This work consists of the file  postage.dtx
+%% and the derived files           postage.ins,
+%%                                 postage.pdf and
+%%                                 postage.sty.
+%%
+%% End of file `postage.sty'.
