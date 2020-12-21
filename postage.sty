@@ -57,7 +57,18 @@
 \newlength{\postage@stamp@barcode@height}
 \newlength{\postage@stamp@barcode@x}
 \newlength{\postage@stamp@barcode@y}
-\newlength{\postage@stamp@barcode@text@width}
+\newlength{\postage@stamp@im@width}
+\newlength{\postage@stamp@im@height}
+\newlength{\postage@stamp@im@x}
+\newlength{\postage@stamp@im@y}
+\newlength{\postage@stamp@codetop@width}
+\newlength{\postage@stamp@codetop@height}
+\newlength{\postage@stamp@codetop@x}
+\newlength{\postage@stamp@codetop@y}
+\newlength{\postage@stamp@codebottom@width}
+\newlength{\postage@stamp@codebottom@height}
+\newlength{\postage@stamp@codebottom@x}
+\newlength{\postage@stamp@codebottom@y}
 \newlength{\postage@stamp@logo@width}
 \newlength{\postage@stamp@logo@height}
 \newlength{\postage@stamp@logo@x}
@@ -68,19 +79,31 @@
 \setlength{\postage@grid@height}{32.999mm}
 \setlength{\postage@grid@x}{22.5mm}
 \setlength{\postage@grid@y}{14.05473mm}
-\setlength{\postage@stamp@content@width}{31.639mm}
-\setlength{\postage@stamp@content@height}{22.473mm}
-\setlength{\postage@stamp@content@x}{3.024mm}
-\setlength{\postage@stamp@content@y}{2.855mm}
-\setlength{\postage@stamp@barcode@width}{30.862mm}
-\setlength{\postage@stamp@barcode@height}{11.01mm}
-\setlength{\postage@stamp@barcode@x}{3.009mm}
-\setlength{\postage@stamp@barcode@y}{11.029mm}
-\setlength{\postage@stamp@barcode@text@width}{15.732mm}
-\setlength{\postage@stamp@logo@width}{31.639mm}
-\setlength{\postage@stamp@logo@height}{5.282mm}
-\setlength{\postage@stamp@logo@x}{3.024mm}
-\setlength{\postage@stamp@logo@y}{2.855mm}
+\setlength{\postage@stamp@content@width}{36.0mm}
+\setlength{\postage@stamp@content@height}{20.000mm}
+\setlength{\postage@stamp@content@x}{1.750mm}
+\setlength{\postage@stamp@content@y}{0.250mm}
+\setlength{\postage@stamp@barcode@width}{12mm}
+\setlength{\postage@stamp@barcode@height}{\postage@stamp@barcode@width}
+\setlength{\postage@stamp@barcode@x}{\postage@stamp@content@x}
+\setlength{\postage@stamp@barcode@y}{\postage@stamp@content@height-\postage@stamp@barcode@height+\postage@stamp@content@y}
+\setlength{\postage@stamp@logo@width}{23mm}
+\setlength{\postage@stamp@logo@height}{4mm}
+\setlength{\postage@stamp@logo@x}{\postage@stamp@content@width-\postage@stamp@logo@width+\postage@stamp@content@x}
+\setlength{\postage@stamp@logo@y}{\postage@stamp@content@y}
+\setlength{\postage@stamp@im@width}{\postage@stamp@logo@width}
+\setlength{\postage@stamp@im@height}{3.2mm}
+\setlength{\postage@stamp@im@x}{\postage@stamp@content@width-\postage@stamp@im@width+\postage@stamp@content@x}
+\setlength{\postage@stamp@im@y}{\postage@stamp@logo@height+\postage@stamp@content@y}
+\setlength{\postage@stamp@codebottom@width}{19mm}
+\setlength{\postage@stamp@codebottom@height}{2.35mm}
+\setlength{\postage@stamp@codebottom@x}{13mm+\postage@stamp@content@x}
+\setlength{\postage@stamp@codebottom@y}{\postage@stamp@content@height-\postage@stamp@codebottom@height+\postage@stamp@content@y}
+\setlength{\postage@stamp@codetop@width}{\postage@stamp@codebottom@width}
+\setlength{\postage@stamp@codetop@height}{\postage@stamp@codebottom@height}
+\setlength{\postage@stamp@codetop@x}{\postage@stamp@codebottom@x}
+\setlength{\postage@stamp@codetop@y}{\postage@stamp@content@height-\postage@stamp@codebottom@height-\postage@stamp@codetop@height+\postage@stamp@content@y}
+
 \newlength{\postage@current@stamp@x}
 \newlength{\postage@current@stamp@y}
 \newlength{\postage@current@stamp@trim@left}
@@ -140,7 +163,8 @@
     \setlength{\postage@current@stamp@trim@bottom}{
         \postage@page@height -
         \postage@current@stamp@trim@top -
-        \postage@stamp@barcode@height}%
+        \postage@stamp@barcode@height
+    }%
     \setlength{\postage@current@stamp@trim@right}{
         \postage@page@width -
         \postage@current@stamp@trim@left -
@@ -167,21 +191,88 @@
         \postage@current@stamp@trim@left -
         \postage@stamp@logo@width
     }%
-    \postage@draw@current@stamp@part[%
-        width={1\postage@stamp@barcode@text@width}
-    ]%
+    \postage@draw@current@stamp@part%
+}
+\newcommand{\postage@draw@current@stamp@im}{%
+\setlength{\postage@current@stamp@trim@top}{
+\postage@current@stamp@y +
+\postage@stamp@im@y
+}%
+\setlength{\postage@current@stamp@trim@left}{
+\postage@current@stamp@x +
+\postage@stamp@im@x
+}%
+\setlength{\postage@current@stamp@trim@bottom}{
+\postage@page@height -
+\postage@current@stamp@trim@top -
+\postage@stamp@im@height
+}%
+\setlength{\postage@current@stamp@trim@right}{
+\postage@page@width -
+\postage@current@stamp@trim@left -
+\postage@stamp@im@width
+}%
+\postage@draw@current@stamp@part%
+}
+\newcommand{\postage@draw@current@stamp@codetop}{%
+\setlength{\postage@current@stamp@trim@top}{
+\postage@current@stamp@y +
+\postage@stamp@codetop@y
+}%
+\setlength{\postage@current@stamp@trim@left}{
+\postage@current@stamp@x +
+\postage@stamp@codetop@x
+}%
+\setlength{\postage@current@stamp@trim@bottom}{
+\postage@page@height -
+\postage@current@stamp@trim@top -
+\postage@stamp@codetop@height
+}%
+\setlength{\postage@current@stamp@trim@right}{
+\postage@page@width -
+\postage@current@stamp@trim@left -
+\postage@stamp@codetop@width
+}%
+\postage@draw@current@stamp@part%
+}
+\newcommand{\postage@draw@current@stamp@codebottom}{%
+\setlength{\postage@current@stamp@trim@top}{
+\postage@current@stamp@y +
+\postage@stamp@codebottom@y
+}%
+\setlength{\postage@current@stamp@trim@left}{
+\postage@current@stamp@x +
+\postage@stamp@codebottom@x
+}%
+\setlength{\postage@current@stamp@trim@bottom}{
+\postage@page@height -
+\postage@current@stamp@trim@top -
+\postage@stamp@codebottom@height
+}%
+\setlength{\postage@current@stamp@trim@right}{
+\postage@page@width -
+\postage@current@stamp@trim@left -
+\postage@stamp@codebottom@width
+}%
+\postage@draw@current@stamp@part%
 }
 \newcommand{\postage@draw@current@stamp@style@compact}{%
     \begin{tikzpicture}
     \node[anchor=north east, inner sep=0] at (0,0)
     {\postage@draw@current@stamp@barcode};
-    \node[anchor=north east, inner sep=0] at (0,0)
+    \node[anchor=north east, inner sep=0] at (0-\postage@stamp@barcode@width-2mm,0)
     {\postage@draw@current@stamp@logo};
+    \node[anchor=north east, inner sep=0] at (0-\postage@stamp@barcode@width-2.5mm-\postage@stamp@logo@width-1mm,\postage@stamp@im@height-\postage@stamp@logo@height)
+    {\postage@draw@current@stamp@im};
+    \node[anchor=north east, inner sep=0] at (0-\postage@stamp@barcode@width-2.5mm-\postage@stamp@logo@width-1mm-\postage@stamp@im@width+\postage@stamp@codetop@width+4.5mm,\postage@stamp@codetop@height)
+    {\postage@draw@current@stamp@codetop};
+    \node[anchor=north east, inner sep=0] at (0-\postage@stamp@barcode@width-2.5mm-\postage@stamp@logo@width-1mm-\postage@stamp@im@width+\postage@stamp@codetop@width+4.5mm+\postage@stamp@codebottom@width,\postage@stamp@codebottom@height)
+    {\postage@draw@current@stamp@codebottom};
     \end{tikzpicture}%
-}
+}%
 \newcommand{\postage@draw@current@stamp@style@normal}{%
-    \postage@draw@current@stamp@content%
-}
+\postage@draw@current@stamp@content%
+}%
 \newcommand{\includestamp}[2][]{%
     \setkeys{postage}{#1}%
     \def\postage@current@stamp@file{#2}%
