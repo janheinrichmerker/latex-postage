@@ -1,0 +1,95 @@
+name: Create release
+
+on:
+  push:
+    tags: # Push events to new versions, e.g., 1.0, 20.15.10
+      - "v[0-9]+.[0-9]+"
+      - "v[0-9]+.[0-9]+.[0-9]+"
+      - "v[0-9]+.[0-9]+-*"
+      - "v[0-9]+.[0-9]+.[0-9]+-*"
+
+jobs:
+  build:
+    name: "🚀 Release"
+    runs-on: ubuntu-18.04
+    steps:
+      - name: "📥 Check-out"
+        uses: actions/checkout@v2
+      - name: "🏷️ Get version tag"
+        id: get-version
+        run: echo ::set-output name=tag::${GITHUB_REF/refs\/tags\//}
+      - name: "✏️ Generate changelog"
+        id: generate-changelog
+        if: runner.os == 'Linux'
+        uses: heinrichreimer/action-github-changelog-generator@v2.1
+        with:
+          onlyLastTag: "true"
+          stripHeaders: "true"
+          stripGeneratorNotice: "true"
+      - name: "🏗️ Build LaTeX package"
+        uses: xu-cheng/texlive-action/small@v1
+        with:
+          run: |
+            apk add make zip
+            make ctan
+      - name: "📤 Upload LaTeX package"
+        uses: actions/upload-artifact@v2
+        with:
+          path: ./postage/postage.sty
+          name: LaTeX package
+      - name: "📤 Upload LaTeX documentation"
+        uses: actions/upload-artifact@v2
+        with:
+          path: ./postage/postage.pdf
+          name: LaTeX package documentation
+      - name: "📤 Upload changelog"
+        uses: actions/upload-artifact@v2
+        with:
+          path: ./CHANGELOG.md
+          name: Changelog
+      - name: "🚀 Create GitHub release"
+        id: create-github-release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ steps.get-version.outputs.tag }}
+          body: ${{ steps.generate-changelog.outputs.changelog }}
+          prerelease: false
+      - name: "📤 Upload LaTeX package"
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create-github-release.outputs.upload_url }}
+          asset_path: ./postage/postage.cls
+          asset_name: postage.cls
+          asset_content_type: application/x-tex
+      - name: "📤 Upload LaTeX documentation"
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create-github-release.outputs.upload_url }}
+          asset_path: ./postage/postage.pdf
+          asset_name: postage.pdf
+          asset_content_type: application/pdf
+      - name: "📤 Upload LaTeX CTAN archive"
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create-github-release.outputs.upload_url }}
+          asset_path: ./postage.zip
+          asset_name: postage.zip
+          asset_content_type: application/zip
+      - name: "📤 Upload changelog"
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create-github-release.outputs.upload_url }}
+          asset_path: ./CHANGELOG.md
+          asset_name: CHANGELOG.md
+          asset_content_type: application/zip

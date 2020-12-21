@@ -1,4 +1,0 @@
-todo:
-  autoAssign: true
-  keyword: ['@todo', 'TODO', '@fixme', 'FIXME']
-  label: false

@@ -1,0 +1,23 @@
+name: "CI"
+
+on:
+  push:
+
+jobs:
+  build:
+    name: "🏗️ LaTeX build"
+    runs-on: ubuntu-18.04
+    steps:
+      - name: "📥 Check-out"
+        uses: actions/checkout@v2
+      - name: "🏗️ Build LaTeX package"
+        uses: xu-cheng/texlive-action/small@v1
+        with:
+          run: |
+            apk add make
+            make install
+      - name: "📤 Upload LaTeX documentation"
+        uses: actions/upload-artifact@v2
+        with:
+          path: ./postage/postage.pdf
+          name: LaTeX package documentation
