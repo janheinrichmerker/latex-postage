@@ -1,28 +1,12 @@
 # The `postage` package
 
-Franking letters with »Deutsche Post«'s online postage service »Internetmarke«.
+Stamp letters with _Deutsche Post_'s online postage service _Internetmarke_.
 
 ## Contact
 
-Author: Jan Heinrich Reimer
-E-mail: [heinrich@heinrichreimer.com](heinrich@heinrichreimer.com)
-Address: Barfüßerstraße 7, 06108 Halle (Saale), Germany
+I am happy to accept pull requests and feature requests on [GitHub](https://github.com/heinrichreimer/postage).
+Alternatively, you can contact me via email: [heinrich@reimer.family](mailto:heinrich@reimer.family)
 
 ## License
 
-Copyright (C) 2018 by Jan Heinrich Reimer <heinrich@heinrichreimer.com>
-
-This work may be distributed and/or modified under the
-conditions of the LaTeX Project Public License (LPPL), either
-version 1.3c of this license or (at your option) any later
-version.  The latest version of this license is in the file:
-
-http://www.latex-project.org/lppl.txt
-
-This work is "maintained" (as per LPPL maintenance status) by
-Jan Heinrich Reimer.
-
-This work consists of the file  postage.dtx
-and the derived files           postage.ins,
-                                postage.pdf and
-                                postage.sty.
+Copyright 2020 Jan Heinrich Reimer, licensed under LPPL version 1.3c.
